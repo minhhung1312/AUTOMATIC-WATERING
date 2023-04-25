@@ -1,0 +1,25 @@
+.container {
+  width: 80rem;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo{
+  width: 250px;
+}
+.item-text{
+  width: 7.5rem;
+  height: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #0245A3;
+}
+.item-text-active{
+  border-radius: 1rem;
+  background-color: rgb(133, 156, 154);
+}

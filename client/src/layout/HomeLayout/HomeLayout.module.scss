@@ -1,0 +1,19 @@
+.container {
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.navbar {
+  height: 4rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.content {
+  width: 80rem;
+  margin-bottom: 2rem;
+}
