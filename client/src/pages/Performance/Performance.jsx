@@ -80,16 +80,16 @@ const Performance = () => {
 
   return (
     <div className={cx("container")}>
-      <div className="row">
-        <div className="col-md-6">
+      <div className={cx("row")}>
+        <div className={cx("col-md-6")}>
           <div className={cx("time")}>
             <div className={cx("circle")} style={{ "--clr": "#04fc43" }}>
               <div className={cx("dots")}></div>
-              <svg>
+              <svg className={cx("svg")}>
                 <circle cx="70" cy="70" r="70"></circle>
                 <circle cx="70" cy="70" r="70" strokeDashoffset={440 - (440 * minutes) / 60} id="mm"></circle>
               </svg>
-              <div id="minutes">{minutes}<br /><span>Minutes</span></div>
+              <div id="minutes">{minutes}<br /><span className={cx("span")}>Minutes</span></div>
             </div>
           </div>
 
