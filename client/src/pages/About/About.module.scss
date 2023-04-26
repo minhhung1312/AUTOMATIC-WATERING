@@ -2,5 +2,59 @@
   font-family: "Roboto", sans-serif;
   width: 100%;
   display: flex;
-  background-color: white;
+  /* background-color: white; */
 }
+
+.about {
+  /* body/large */
+
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 32px;
+	/* or 160% */
+
+	text-align: center;
+	letter-spacing: 0.5px;
+	color: #000000;
+	/* Inside auto layout */
+
+	flex: none;
+	order: 1;
+	align-self: stretch;
+	flex-grow: 0;
+	margin: 150px auto;
+	width: 60%;
+}
+
+.about h4 {
+	/* body/large */
+
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 30px;
+	line-height: 32px;
+	/* or 160% */
+
+	text-align: center;
+	letter-spacing: 0.5px;
+	color: #000000;
+}
+
+.about h1 {
+	/* body/large */
+
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 60px;
+	line-height: 60px;
+	/* or 120% */
+
+	text-align: center;
+	letter-spacing: 0.5px;
+	color: #000000;
+}
+
