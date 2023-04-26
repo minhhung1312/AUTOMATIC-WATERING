@@ -1,5 +1,43 @@
 .container {
-  font-family: "Roboto", sans-serif;
-  width: 100%;
-  background-color: white;
-}
+	font-family: "Roboto", sans-serif;
+	width: 100%;
+  }
+  
+  .background{
+	  margin-left: auto;
+	  margin-right: auto;
+	  background-color: rgba(0, 0, 0, 0.4);
+	  margin-top: 5%;
+	  border-radius: 25px;
+	  text-align: center;
+	  display: block;
+	  padding: 20px;
+	  width: 60%;
+	  height: 80%;
+	font-size: 20px;
+  }
+  
+  .label{
+	  display: block;
+	  margin: 10px 15% 0px  15%;
+	  width: 70%;
+	  background-color: #21FFCA;
+	  font-style: normal;
+	  text-align: center;
+	  font-weight: 550;
+	  border-radius: 20px;
+	  color: #0245A3;	
+	font-size: 2.5rem;
+	margin-bottom: 30px;
+  }
+  
+  .notification{
+	  display: block;
+	  margin: 10px 15% 0px  15%;
+	  width: 70%;
+	  background-color: white;
+	  font-style: normal;
+	  text-align: center;
+	  font-weight: 550;
+	  border-radius: 20px;
+  }

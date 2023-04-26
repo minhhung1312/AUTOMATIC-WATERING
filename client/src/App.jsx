@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import HomeLayout from "./layout/HomeLayout/HomeLayout"
 import ChoosePlant from './pages/ChoosePlant/ChoosePlant';
+import SetTime from "./pages/SetTime/SetTime";
 import SelectMode from "./pages/SelectMode/SelectMode";
 import Dashboard from './pages/Dashboard/Dashboard';
 import Performance from './pages/Performance/Performance';
@@ -18,6 +19,7 @@ function App() {
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<ChoosePlant />} />
         <Route path="SelectMode" element={<SelectMode />} />
+        <Route path="SetTime" element={<SetTime />} />
         <Route path="Dashboard" element={<Dashboard />} />
         <Route path="Performance" element={<Performance />} />
         <Route path="Maintenance" element={<Maintenance />} />
@@ -25,9 +27,6 @@ function App() {
         <Route path="About" element={<About />} />
         <Route path="*" element={<Error />} />
       </Route>
-
-      
-
     </Routes>
   )
 }

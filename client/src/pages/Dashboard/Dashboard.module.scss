@@ -28,13 +28,13 @@
 }
 .status{
   width: 42%;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
 }
 .mode{
   width: 52%;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
 }
@@ -48,21 +48,21 @@
 .temperature{
   width: 100%;
   height: 200px;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
 }
 .air{
   width: 100%;
   height: 200px;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
 }
 .soil{
   width: 100%;
   height: 200px;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
 }
@@ -119,7 +119,7 @@
   border: none;
 }
 .block{
-  background-color: #00000087;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .head-title{
   display: flex;
@@ -140,13 +140,13 @@
 }
 .humidity{
   width: 47%;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
 }
 .temp{
   width: 47%;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
 }
@@ -175,7 +175,7 @@
 .process{
   width: 100%;
   height: 640px;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
 }
@@ -213,7 +213,7 @@
 .sensor-status{
   width: 100%;
   height: 170px;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
   margin-bottom: 20px;
@@ -226,7 +226,7 @@
 .request{
   width: 100%;
   height: 170px;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
   margin-bottom: 20px;
@@ -234,7 +234,7 @@
 .nofi{
   width: 100%;
   height: 450px;
-  background-color: #00000063;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   padding: 15px;
 }

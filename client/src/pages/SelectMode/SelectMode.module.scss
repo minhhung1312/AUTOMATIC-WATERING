@@ -1,5 +1,43 @@
 .container {
-    width: 100%;
-    display: flex;
-    background-color: white;
+	width: 55%;
+  	margin-left: auto;
+	margin-right: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-top: 100px;
+	border-radius: 25px;
+	text-align: center;
+	display: block;
+	padding: 20px;
+	height: 80%;
+}
+
+.label {
+  	display: block;
+	margin: 10px 10% 0px 10%;
+	width: 80%;
+	background-color: #21FFCA;
+	font-style: normal;
+	text-align: center;
+	font-weight: 550;
+	font-size: 2.5rem;
+	border-radius: 20px;
+	color: #0245A3;
+}
+
+.block-select {
+    width: 40%;
+    height:100%;
+    background: #C6F4F9;
+    border-radius: 20px;
+    display: inline-block;
+    font-style: normal;
+    text-align: center;
+    font-weight: 550;
+    font-size: 2.25rem;
+    margin-top: 5%;
+	cursor: pointer;
+}
+.block-select:hover{
+	background-color: rgba(0, 0, 0, 0.2);
+	color: white;
 }
