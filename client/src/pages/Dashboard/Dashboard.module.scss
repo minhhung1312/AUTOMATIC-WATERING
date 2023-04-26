@@ -44,6 +44,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  .title, .text-update{
+    margin: 0;
+  }
 }
 .temperature{
   width: 100%;
