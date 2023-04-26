@@ -23,9 +23,10 @@ function App() {
         <Route path="Maintenance" element={<Maintenance />} />
         <Route path="History" element={<History />} />
         <Route path="About" element={<About />} />
+        <Route path="*" element={<Error />} />
       </Route>
 
-      <Route path="/*" element={<Error />} />
+      
 
     </Routes>
   )

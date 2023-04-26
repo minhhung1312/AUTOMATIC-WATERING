@@ -13,9 +13,6 @@ const Error = () => {
 
   return (
     <div className={cx("container")}>
-      <div className={cx("navbar")}>
-        <Navbar />
-      </div>
       <div className={cx("content")}>
         <div className={cx("image")}>
           <img className={cx("img-er")} src={error} />
