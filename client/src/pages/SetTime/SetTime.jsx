@@ -3,9 +3,15 @@ import React, { useState, useEffect } from 'react'
 import classNames from "classnames/bind"
 import styles from "./SetTime.module.scss"
 
+import { IOKey } from '../../utils/IOKey'
+
 const cx = classNames.bind(styles)
 
+
+
 const SetTime = () => {
+
+    const Key = IOKey.split("").reverse().join("");
 
     const [hour, setHour] = useState("00");
     const [minute, setMinute] = useState("00");
@@ -25,8 +31,19 @@ const SetTime = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        window.location.href = '/Dashboard';
+        fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/semi-auto/data', {
+            method: "POST",
+            headers: {
+                "X-AIO-Key": Key,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "value": parseInt(hour) * 3600 + parseInt(minute) * 60 + parseInt(second) }),
+        }).then(response => response.json())
+            .catch(error => console.error('Error fetching data from Adafruit IO:', error));
+        
+        setTimeout(() => { console.log(20); window.location.href = '/Dashboard'; }, 300);
     };
+
 
     const createOptions = (start, end) => {
         const options = [];
