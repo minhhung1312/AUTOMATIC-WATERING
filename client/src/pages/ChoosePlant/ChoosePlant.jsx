@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 import classNames from "classnames/bind"
 import styles from "./ChoosePlant.module.scss"
-import axios from 'axios';
 
 const cx = classNames.bind(styles)
 
 const ChoosePlant = () => {
-
 
   const [selectedValue, setSelectedValue] = useState('0');
 

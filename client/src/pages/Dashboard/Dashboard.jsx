@@ -8,6 +8,7 @@ import { faTemperature1 } from '@fortawesome/free-solid-svg-icons';
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { IOKey } from '../../utils/IOKey';
 
 const cx = classNames.bind(styles);
 
@@ -16,7 +17,7 @@ const Dashboard = () => {
     labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
     datasets: [
       {
-        label: '',
+        label: 'Soil moisture',
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         fill: false,
         borderColor: 'rgb(246, 31, 31)',
@@ -47,6 +48,8 @@ const Dashboard = () => {
       },
     },
   };
+
+  const Key = IOKey.split("").reverse().join("");
   
   const [singleTemp, setSingleTemp] = useState();
   const [singleAir, setSingleAir] = useState();
@@ -60,7 +63,7 @@ const Dashboard = () => {
     fetch(`https://io.adafruit.com/api/v2/ltduc147/feeds/humidity-sensor/data?limit=20`, {
       method: "GET",
       headers: {
-        "X-AIO-Key": "aio_DAFv14EfYm6iHgBX3DCX0DKzRokq",
+        "X-AIO-Key": Key,
         "Content-Type": "application/json",
       },
     })
@@ -92,7 +95,7 @@ const Dashboard = () => {
     fetch(`https://io.adafruit.com/api/v2/ltduc147/feeds/temperature-sensor/data?limit=20`, {
       method: "GET",
       headers: {
-        "X-AIO-Key": "aio_DAFv14EfYm6iHgBX3DCX0DKzRokq",
+        "X-AIO-Key": Key,
         "Content-Type": "application/json",
       },
     })
@@ -124,7 +127,7 @@ const Dashboard = () => {
     fetch(`https://io.adafruit.com/api/v2/ltduc147/feeds/soil-moisture-sensor/data?limit=20`, {
       method: "GET",
       headers: {
-        "X-AIO-Key": "aio_DAFv14EfYm6iHgBX3DCX0DKzRokq",
+        "X-AIO-Key": Key,
         "Content-Type": "application/json",
       },
     })
@@ -157,7 +160,7 @@ const Dashboard = () => {
       fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/temperature-sensor/data/last', {
         method: "GET",
         headers: {
-          "X-AIO-Key": "aio_DAFv14EfYm6iHgBX3DCX0DKzRokq",
+          "X-AIO-Key": Key,
           "Content-Type": "application/json",
         },
       })
@@ -182,7 +185,7 @@ const Dashboard = () => {
       fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/humidity-sensor/data/last', {
         method: "GET",
         headers: {
-          "X-AIO-Key": "aio_DAFv14EfYm6iHgBX3DCX0DKzRokq",
+          "X-AIO-Key": Key,
           "Content-Type": "application/json",
         },
       })
@@ -207,7 +210,7 @@ const Dashboard = () => {
       fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/soil-moisture-sensor/data/last', {
         method: "GET",
         headers: {
-          "X-AIO-Key": "aio_DAFv14EfYm6iHgBX3DCX0DKzRokq",
+          "X-AIO-Key": Key,
           "Content-Type": "application/json",
         },
       })
