@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import classNames from "classnames/bind"
 import styles from "./Performance.module.scss"
+import { useRef } from 'react'
 
 const cx = classNames.bind(styles)
 
 const Performance = () => {
 
   const [percentage, setPercentage] = useState(0);
-  const [isWatering, setIsWatering] = useState(false);
 
   const events = [
     {
@@ -32,87 +32,97 @@ const Performance = () => {
     },
   ];
 
-  /*   useEffect(() => {
-      let intervalId;
-      if (isWatering) {
-        intervalId = setInterval(() => {
-          setPercentage(prevPercentage => prevPercentage + 10);
-        }, 750);
-      }
-  
-      return () => clearInterval(intervalId);
-    }, [isWatering]);
-  
-    const startWatering = () => {
-      setIsWatering(true);
-    };
-  
-    const pauseWatering = () => {
-      setIsWatering(false);
-    };
-  
-    const resetWatering = () => {
-      setPercentage(0);
-      setIsWatering(false);
-    }; */
-
   //-----------------------------------------------
-  const [minutes, setMinutes] = useState("00");
-
+  // [minutes, setMinutes] = useState("00");
+  const radius = 70
+  const dashArray = radius * Math.PI * 2
+  const [dashOffset, setDashOffset] = useState(dashArray)
+  const [startTimer, setStartTimer] = useState(true)
+  const [count, setCount] = useState(60)
+  const Timer = useRef()
   useEffect(() => {
-    let endDate = new Date("04/30/2023 00:00:00").getTime();
 
-    const interval = setInterval(() => {
-      let now = new Date().getTime();
-      let distance = endDate - now;
+    if (startTimer) {
+      Timer.current = setInterval(() => {
+        //setCount(prevState => prevState - 1);
+        setCount(prevState => {
+          if (prevState <= 0) {
+            clearInterval(Timer.current);
+            setStartTimer(false);
+            return 0;
+          }
+          return prevState - 1;
+        });
+        const percentage = count / 60
+        setDashOffset(percentage * dashArray);
 
-      let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const newPercentage = Math.round(100 - percentage * 100 + 100.0 / 60) - 2;
+        setPercentage(`${newPercentage}%`);
+        console.log(count);
+        if (count < 0) {
+          setStartTimer(false)
+        }
+      }, 500)
+    } else {
+      clearInterval(Timer.current)
+    }
 
-      setMinutes(m < 10 ? "0" + m : m);
+    return () => clearInterval(Timer.current);
+  }, [count]);
 
-      if (distance < 0) {
-        clearInterval(interval);
-      }
-    }, 1000);
+  const pauseWatering = () => {
+    setStartTimer(false)
+  }
 
-    return () => clearInterval(interval);
-  }, []);
+  const resetWatering = () => {
+    setStartTimer(true)
+    setCount(60)
+    setDashOffset(dashArray)
+    clearInterval(Timer.current)
+  };
+
+  const continuewatering = () => {
+    setStartTimer(true)
+  }
 
   return (
     <div className={cx("container")}>
-      <div className={cx("row")}>
-        <div className={cx("col-md-6")}>
-          <div className={cx("time")}>
-            <div className={cx("circle")} style={{ "--clr": "#04fc43" }}>
-              <div className={cx("dots")}></div>
-              <svg className={cx("svg")}>
-                <circle cx="70" cy="70" r="70"></circle>
-                <circle cx="70" cy="70" r="70" strokeDashoffset={440 - (440 * minutes) / 60} id="mm"></circle>
-              </svg>
-              <div id="minutes">{minutes}<br /><span className={cx("span")}>Minutes</span></div>
-            </div>
+      <div className={cx("process")}>
+        <div className={cx("time")}>
+          <div className={cx("circle")} style={{ "--clr": "#04fc43" }}>
+            <svg className={cx("svg")}>
+              <circle cx={radius} cy={radius} r={radius}></circle>
+              <circle cx={radius} cy={radius} r={radius}
+                style={{
+                  strokeDasharray: dashArray,
+                  strokeDashoffset: dashOffset
+                }} id="mm"></circle>
+            </svg>
+            <div id="minutes">{percentage}</div>
           </div>
-
-          {/* <button onClick={startWatering}>Tưới</button> */}
-          <div className="percentage">{percentage}% đã tưới</div>
-          <button /* onClick={pauseWatering} */ className={cx("Turnoff", "button")}>Turn off</button>
-          <button /* onClick={resetWatering} */ className={cx("button")}>Modify</button>
         </div>
+        <div className={cx("buttons")}>
+          <button onClick={pauseWatering} className={cx("Turnoff", "button")}>Turn off</button>
+          <button onClick={continuewatering} className={cx("continue", "button")}>Continue</button>
+          <button onClick={resetWatering} className={cx("button")}>Reset</button>
+        </div>
+      </div>
 
-        <div className="col-md-6">
-          <div className="row">
-            {events.map((event) => (
-              <div className={cx("perform-background")}>
-                <div className={cx("sensor")}>Sensor {event.id}</div>
-                <div className={cx("sensor")}>
-                  t: {event.temperature} oC
-                  <br />
+      <div className={cx("sensor")}>
+        <div className="row">
+          {events.map((event) => (
+            <div className={cx("perform-background")}>
+              <div className={cx("sensor1")}>Sensor {event.id}</div>
+              <div className={cx("sensor2")}>
+                <div className={cx("temp-sensor")}>
+                  t: {event.temperature} <span className={cx("doC")}>o</span>C
+                </div>
+                <div className={cx("humidity-sensor")}>
                   a: {event.Humidity} %
-                  <br />
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
