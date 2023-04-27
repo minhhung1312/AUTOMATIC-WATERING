@@ -41,6 +41,7 @@ const SetTime = () => {
         }).then(response => response.json())
             .catch(error => console.error('Error fetching data from Adafruit IO:', error));
         
+        localStorage.setItem("time", parseInt(hour) * 3600 + parseInt(minute) * 60 + parseInt(second));
         setTimeout(() => { console.log(20); window.location.href = '/Dashboard'; }, 300);
     };
 
