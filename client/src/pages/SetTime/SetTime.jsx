@@ -25,8 +25,18 @@ const SetTime = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/semi-auto/data', {
+            method: "POST",
+            headers: {
+                "X-AIO-Key": "aio_DAFv14EfYm6iHgBX3DCX0DKzRokq",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "value": parseInt(hour) * 3600 + parseInt(minute) * 60 + parseInt(second)}),
+        }).then(response => response.json())
+        .catch(error => console.error('Error fetching data from Adafruit IO:', error));
         window.location.href = '/Dashboard';
     };
+
 
     const createOptions = (start, end) => {
         const options = [];
