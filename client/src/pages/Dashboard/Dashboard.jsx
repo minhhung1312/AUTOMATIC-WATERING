@@ -232,20 +232,10 @@ const Dashboard = () => {
     }
   }, []);
 
-  const [isBlockauto, setIsBlockauto] = useState(1);
-  const [isBlocksemiauto, setIsBlocksemiauto] = useState(0);
-
-  const handleAutoClick = () => {
-    setIsBlockauto(0);
-    setIsBlocksemiauto(1);
-  };
-
-  const handleSemiAutoClick = () => {
-    setIsBlockauto(1);
-    setIsBlocksemiauto(0);
-  };
-
   const mode = localStorage.getItem('mode');
+  const [isBlockauto, setIsBlockauto] = useState(mode === 'auto' ? 0 : 1);
+  const [isBlocksemiauto, setIsBlocksemiauto] = useState(mode === 'semi' ? 0 : 1);
+
   const tmax = localStorage.getItem('tmax');
   const tmin = localStorage.getItem('tmin');
   const max = localStorage.getItem('max');
@@ -278,14 +268,12 @@ const Dashboard = () => {
           <div className={cx("mode")}>
             <p className={cx("title")}>Irrigation mode</p>
             <div className={cx("button-mode")}>
-              <button className={cx("auto-mode", { "block": isBlockauto === 1 })}
-                onClick={handleAutoClick}>
+              <div className={cx("auto-mode", { "block": isBlockauto === 1 })}>
                 Auto
-              </button>
-              <button className={cx("semi-auto-mode", { "block": isBlocksemiauto === 1 })}
-                onClick={handleSemiAutoClick}>
+              </div>
+              <div className={cx("semi-auto-mode", { "block": isBlocksemiauto === 1 })}>
                 Semi-auto
-              </button>
+              </div>
             </div>
           </div>
         </div>
@@ -371,11 +359,11 @@ const Dashboard = () => {
             </div>
             <div className={cx("humi-sensor")}>
               Humidity sensor
-              <FontAwesomeIcon icon={faCircle} className={cx("icon-warning")} />
+              <FontAwesomeIcon icon={faCircle} className={cx("icon-normal")} />
             </div>
             <div className={cx("soil-moisture-sensor")}>
               Soil moisture sensor
-              <FontAwesomeIcon icon={faCircle} className={cx("icon-error")} />
+              <FontAwesomeIcon icon={faCircle} className={cx("icon-normal")} />
             </div>
           </div>
         </div>

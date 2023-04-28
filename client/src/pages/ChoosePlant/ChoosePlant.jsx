@@ -10,7 +10,7 @@ const ChoosePlant = () => {
 
   const [Plantdb, setPlantdb] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost/DADN/v1/AUTOMATIC-WATERING-main/server/pages/ChoosePlant/ChoosePlant.php`)
+    axios.get(`http://localhost/DADN/v2/AUTOMATIC-WATERING-MHung/server/pages/ChoosePlant/ChoosePlant.php`)
       .then(response => {
         setPlantdb(response.data);
       })

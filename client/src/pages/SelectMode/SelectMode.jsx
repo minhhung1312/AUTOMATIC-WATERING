@@ -30,7 +30,7 @@ const SelectMode = () => {
       }).then(response => response.json())
         .catch(error => console.error('Error fetching data from Adafruit IO:', error));
 
-      window.location.href = '/Dashboard';
+      window.location.href = '/Performance';
     });
 
     semiButton.addEventListener('click', () => {

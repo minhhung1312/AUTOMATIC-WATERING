@@ -13,7 +13,7 @@ export const GlobalContextProvider = ({ children }) => {
     useEffect(() => {       // pretend this is getting the loggedin user from BE
         const fetchUser = async () => {
             try {
-                const res = await axios.get("http://localhost:80/DADN/v1/AUTOMATIC-WATERING-main/server/testing")
+                const res = await axios.get("http://localhost:80/DADN/v2/AUTOMATIC-WATERING-MHung/server/testing")
                 // save logged in user in localStorage for easy access
                 // don't imitate!
                 localStorage.setItem("user", JSON.stringify(res.data))
