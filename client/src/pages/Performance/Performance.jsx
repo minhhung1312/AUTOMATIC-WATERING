@@ -126,14 +126,14 @@ const Performance = () => {
     setStartTimer(false)
 
     fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/pump-switch/data', {
-            method: "POST",
-            headers: {
-                "X-AIO-Key": Key,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ "value": 0}),
-        }).then(response => response.json())
-            .catch(error => console.error('Error fetching data from Adafruit IO:', error));
+      method: "POST",
+      headers: {
+        "X-AIO-Key": Key,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "value": 0 }),
+    }).then(response => response.json())
+      .catch(error => console.error('Error fetching data from Adafruit IO:', error));
   }
 
   const resetWatering = () => {
@@ -144,14 +144,14 @@ const Performance = () => {
 
     if (localStorage.getItem("mode") === "semi") {
       fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/semi-auto/data', {
-            method: "POST",
-            headers: {
-                "X-AIO-Key": Key,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ "value": localStorage.getItem("time") }),
-        }).then(response => response.json())
-            .catch(error => console.error('Error fetching data from Adafruit IO:', error));
+        method: "POST",
+        headers: {
+          "X-AIO-Key": Key,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ "value": localStorage.getItem("time") }),
+      }).then(response => response.json())
+        .catch(error => console.error('Error fetching data from Adafruit IO:', error));
     }
 
 
@@ -161,30 +161,32 @@ const Performance = () => {
     setStartTimer(true)
 
     fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/pump-switch/data', {
-            method: "POST",
-            headers: {
-                "X-AIO-Key": Key,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ "value": 1}),
-        }).then(response => response.json())
+      method: "POST",
+      headers: {
+        "X-AIO-Key": Key,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "value": 1 }),
+    }).then(response => response.json())
       .catch(error => console.error('Error fetching data from Adafruit IO:', error));
-    
+
     if (localStorage.getItem("mode") === "auto") {
-      const max = 90;
-      const min = 20; 
+      const max = localStorage.getItem('max');
+      const min = localStorage.getItem('min');
 
       fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/auto/data', {
-            method: "POST",
-            headers: {
-                "X-AIO-Key": Key,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ "value": `${min}:${max}`}),
-        }).then(response => response.json())
+        method: "POST",
+        headers: {
+          "X-AIO-Key": Key,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ "value": `${min}:${max}` }),
+      }).then(response => response.json())
         .catch(error => console.error('Error fetching data from Adafruit IO:', error));
     }
   }
+  const max = localStorage.getItem('max');
+  const min = localStorage.getItem('min');
 
   return (
     <div className={cx("container")}>
@@ -211,17 +213,17 @@ const Performance = () => {
 
       <div className={cx("sensor")}>
         <div className="row">
-            <div className={cx("perform-background")}>
-              <div className={cx("sensor1")}>Sensor {1}</div>
-              <div className={cx("sensor2")}>
-                <div className={cx("temp-sensor")}>
-                  T: {singleTemp} <span className={cx("doC")}>o</span>C
-                </div>
-                <div className={cx("humidity-sensor")}>
-                  H: {singleAir} %
-                </div>
+          <div className={cx("perform-background")}>
+            <div className={cx("sensor1")}>Sensor {1}</div>
+            <div className={cx("sensor2")}>
+              <div className={cx("temp-sensor")}>
+                T: {singleTemp} <span className={cx("doC")}>o</span>C
+              </div>
+              <div className={cx("humidity-sensor")}>
+                H: {singleAir} %
               </div>
             </div>
+          </div>
           {events.map((event) => (
             <div className={cx("perform-background")}>
               <div className={cx("sensor1")}>Sensor {event.id}</div>
