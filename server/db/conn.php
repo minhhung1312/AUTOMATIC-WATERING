@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost:3307";
+$servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "shopping_db"; // change this
+$dbname = "dadn"; // change this
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 

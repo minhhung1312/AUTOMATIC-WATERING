@@ -9,6 +9,7 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { IOKey } from '../../utils/IOKey';
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -50,7 +51,7 @@ const Dashboard = () => {
   };
 
   const Key = IOKey.split("").reverse().join("");
-  
+
   const [singleTemp, setSingleTemp] = useState();
   const [singleAir, setSingleAir] = useState();
   const [singleSoil, setSingleSoil] = useState();
@@ -244,6 +245,13 @@ const Dashboard = () => {
     setIsBlocksemiauto(0);
   };
 
+  const mode = localStorage.getItem('mode');
+  const tmax = localStorage.getItem('tmax');
+  const tmin = localStorage.getItem('tmin');
+  const max = localStorage.getItem('max');
+  const min = localStorage.getItem('min');
+  const soil = localStorage.getItem('soil');
+
   return (
     <div className={cx("container")}>
       <div className={cx("column1")}>
@@ -288,7 +296,7 @@ const Dashboard = () => {
               <p className={cx("text-update")}>Last update: Now </p>
             </div>
             <div className={cx("detail-chart")}>
-              <Line data={dataTemp} options={options}/>
+              <Line data={dataTemp} options={options} />
             </div>
           </div>
           <div className={cx("air")}>
@@ -297,7 +305,7 @@ const Dashboard = () => {
               <p className={cx("text-update")}>Last update: Now </p>
             </div>
             <div className={cx("detail-chart")}>
-              <Line data={dataAir} options={options}/>
+              <Line data={dataAir} options={options} />
             </div>
           </div>
           <div className={cx("soil")}>
@@ -306,7 +314,7 @@ const Dashboard = () => {
               <p className={cx("text-update")}>Last update: Now </p>
             </div>
             <div className={cx("detail-chart")}>
-              <Line data={dataSoil} options={options}/>
+              <Line data={dataSoil} options={options} />
             </div>
           </div>
         </div>
@@ -377,13 +385,13 @@ const Dashboard = () => {
           </p>
           <div className={cx("text-status")}>
             <div>
-              Temperature: ... {/*add DB*/}
+              Temperature: {tmin} - {tmax}
             </div>
             <div>
-              Humidity: ... {/*add DB*/}
+              Humidity: {min} - {max}
             </div>
             <div >
-              Soil moisture: ... {/*add DB*/}
+              Soil moisture: {soil}
             </div>
           </div>
         </div>
