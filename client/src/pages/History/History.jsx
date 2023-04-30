@@ -2,37 +2,24 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./History.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles)
 
-const events = [
-  {
-    day: '25-04-2023',
-    time: '11:00:00',
-    activity: 'Start Watering',
-  },
-  {
-    day: '25-04-2023',
-    time: '11:17:28',
-    activity: 'End Watering',
-  },
-  {
-    day: '26-04-2023',
-    time: '09:50:00',
-    activity: 'Start Watering',
-  },
-  {
-    day: '26-04-2023',
-    time: '10:8:23',
-    activity: 'End Watering',
-  },
-];
-
 const History = () => {
+  const [history, sethistory] = useState([]);
+  useEffect(() => {
+    axios.get(`http://localhost/DADN/v2/AUTOMATIC-WATERING-MHung/server/pages/History/History.php`)
+      .then(response => {
+        sethistory(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div className={cx("container")}>
-
       <div className={cx("label")}>History</div>
       <div className={cx("table")}>
         <table
@@ -47,11 +34,11 @@ const History = () => {
             </tr>
           </thead>
           <tbody>
-            {events.map((event) => (
-              <tr key={event.id}>
-                <td>{event.day}</td>
-                <td>{event.time}</td>
-                <td>{event.activity}</td>
+            {history.map((item) => (
+              <tr key={item.id}>
+                <td>{item.day}</td>
+                <td>{item.time}</td>
+                <td>{item.activity}</td>
               </tr>
             ))}
           </tbody>

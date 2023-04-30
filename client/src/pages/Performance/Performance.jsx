@@ -3,6 +3,7 @@ import classNames from "classnames/bind"
 import styles from "./Performance.module.scss"
 import { useRef } from 'react'
 import { IOKey } from '../../utils/IOKey'
+import axios from 'axios';
 
 const cx = classNames.bind(styles)
 
@@ -12,23 +13,7 @@ const Performance = () => {
 
   const [percentage, setPercentage] = useState(0);
 
-  const events = [
-    {
-      id: '1',
-      temperature: '20',
-      Humidity: '50',
-    },
-    {
-      id: '2',
-      temperature: '21',
-      Humidity: '60',
-    },
-    {
-      id: '3',
-      temperature: '22',
-      Humidity: '70',
-    },
-  ];
+  const events = [1, 2, 3, 4];
 
   //-----------------------------------------------
   // [minutes, setMinutes] = useState("00");
@@ -114,7 +99,7 @@ const Performance = () => {
         if (count < 0) {
           setStartTimer(false)
         }
-      }, 500)
+      }, 1000)
     } else {
       clearInterval(Timer.current)
     }
@@ -126,14 +111,27 @@ const Performance = () => {
     setStartTimer(false)
 
     fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/pump-switch/data', {
-            method: "POST",
-            headers: {
-                "X-AIO-Key": Key,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ "value": 0}),
-        }).then(response => response.json())
-            .catch(error => console.error('Error fetching data from Adafruit IO:', error));
+      method: "POST",
+      headers: {
+        "X-AIO-Key": Key,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "value": 0 }),
+    }).then(response => response.json())
+      .catch(error => console.error('Error fetching data from Adafruit IO:', error));
+
+
+    const formData = new FormData();
+    formData.append('date', new Date().toLocaleDateString());
+    formData.append('time', new Date().toLocaleTimeString());
+    formData.append('activity', 'Stop watering');
+    axios.post('http://localhost/DADN/v2/AUTOMATIC-WATERING-MHung/server/pages/Performance/Performance.php', formData)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   const resetWatering = () => {
@@ -144,15 +142,27 @@ const Performance = () => {
 
     if (localStorage.getItem("mode") === "semi") {
       fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/semi-auto/data', {
-            method: "POST",
-            headers: {
-                "X-AIO-Key": Key,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ "value": localStorage.getItem("time") }),
-        }).then(response => response.json())
-            .catch(error => console.error('Error fetching data from Adafruit IO:', error));
+        method: "POST",
+        headers: {
+          "X-AIO-Key": Key,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ "value": localStorage.getItem("time") }),
+      }).then(response => response.json())
+        .catch(error => console.error('Error fetching data from Adafruit IO:', error));
     }
+
+    const formData = new FormData();
+    formData.append('date', new Date().toLocaleDateString());
+    formData.append('time', new Date().toLocaleTimeString());
+    formData.append('activity', 'Reset watering');
+    axios.post('http://localhost/DADN/v2/AUTOMATIC-WATERING-MHung/server/pages/Performance/Performance.php', formData)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
 
 
   };
@@ -161,31 +171,45 @@ const Performance = () => {
     setStartTimer(true)
 
     fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/pump-switch/data', {
-            method: "POST",
-            headers: {
-                "X-AIO-Key": Key,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ "value": 1}),
-        }).then(response => response.json())
+      method: "POST",
+      headers: {
+        "X-AIO-Key": Key,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "value": 1 }),
+    }).then(response => response.json())
       .catch(error => console.error('Error fetching data from Adafruit IO:', error));
-    
+
+    const formData = new FormData();
+    formData.append('date', new Date().toLocaleDateString());
+    formData.append('time', new Date().toLocaleTimeString());
+    formData.append('activity', 'Continue watering');
+    axios.post('http://localhost/DADN/v2/AUTOMATIC-WATERING-MHung/server/pages/Performance/Performance.php', formData)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
     if (localStorage.getItem("mode") === "auto") {
-      const max = 90;
-      const min = 20; 
+      const max = localStorage.getItem('max');
+      const min = localStorage.getItem('min');
 
       fetch('https://io.adafruit.com/api/v2/ltduc147/feeds/auto/data', {
-            method: "POST",
-            headers: {
-                "X-AIO-Key": Key,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ "value": `${min}:${max}`}),
-        }).then(response => response.json())
+        method: "POST",
+        headers: {
+          "X-AIO-Key": Key,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ "value": `${min}:${max}` }),
+      }).then(response => response.json())
         .catch(error => console.error('Error fetching data from Adafruit IO:', error));
+
+
     }
   }
-
+  const mode = localStorage.getItem('mode');
   return (
     <div className={cx("container")}>
       <div className={cx("process")}>
@@ -203,7 +227,7 @@ const Performance = () => {
           </div>
         </div>
         <div className={cx("buttons")}>
-          <button onClick={pauseWatering} className={cx("Turnoff", "button")}>Turn off</button>
+          <button onClick={pauseWatering} className={cx("Turnoff", "button")}>Stop</button>
           <button onClick={continuewatering} className={cx("continue", "button")}>Continue</button>
           <button onClick={resetWatering} className={cx("button")}>Reset</button>
         </div>
@@ -211,26 +235,15 @@ const Performance = () => {
 
       <div className={cx("sensor")}>
         <div className="row">
-            <div className={cx("perform-background")}>
-              <div className={cx("sensor1")}>Sensor {1}</div>
+          {events.map((event, index) => (
+            <div key={index} className={cx("perform-background")}>
+              <div className={cx("sensor1")}>Sensor {event}</div>
               <div className={cx("sensor2")}>
                 <div className={cx("temp-sensor")}>
                   T: {singleTemp} <span className={cx("doC")}>o</span>C
                 </div>
                 <div className={cx("humidity-sensor")}>
                   H: {singleAir} %
-                </div>
-              </div>
-            </div>
-          {events.map((event) => (
-            <div className={cx("perform-background")}>
-              <div className={cx("sensor1")}>Sensor {event.id}</div>
-              <div className={cx("sensor2")}>
-                <div className={cx("temp-sensor")}>
-                  T: {event.temperature} <span className={cx("doC")}>o</span>C
-                </div>
-                <div className={cx("humidity-sensor")}>
-                  H: {event.Humidity} %
                 </div>
               </div>
             </div>

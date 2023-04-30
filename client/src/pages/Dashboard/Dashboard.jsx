@@ -9,6 +9,7 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { IOKey } from '../../utils/IOKey';
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -50,7 +51,7 @@ const Dashboard = () => {
   };
 
   const Key = IOKey.split("").reverse().join("");
-  
+
   const [singleTemp, setSingleTemp] = useState();
   const [singleAir, setSingleAir] = useState();
   const [singleSoil, setSingleSoil] = useState();
@@ -231,18 +232,15 @@ const Dashboard = () => {
     }
   }, []);
 
-  const [isBlockauto, setIsBlockauto] = useState(1);
-  const [isBlocksemiauto, setIsBlocksemiauto] = useState(0);
+  const mode = localStorage.getItem('mode');
+  const [isBlockauto, setIsBlockauto] = useState(mode === 'auto' ? 0 : 1);
+  const [isBlocksemiauto, setIsBlocksemiauto] = useState(mode === 'semi' ? 0 : 1);
 
-  const handleAutoClick = () => {
-    setIsBlockauto(0);
-    setIsBlocksemiauto(1);
-  };
-
-  const handleSemiAutoClick = () => {
-    setIsBlockauto(1);
-    setIsBlocksemiauto(0);
-  };
+  const tmax = localStorage.getItem('tmax');
+  const tmin = localStorage.getItem('tmin');
+  const max = localStorage.getItem('max');
+  const min = localStorage.getItem('min');
+  const soil = localStorage.getItem('soil');
 
   return (
     <div className={cx("container")}>
@@ -270,14 +268,12 @@ const Dashboard = () => {
           <div className={cx("mode")}>
             <p className={cx("title")}>Irrigation mode</p>
             <div className={cx("button-mode")}>
-              <button className={cx("auto-mode", { "block": isBlockauto === 1 })}
-                onClick={handleAutoClick}>
+              <div className={cx("auto-mode", { "block": isBlockauto === 1 })}>
                 Auto
-              </button>
-              <button className={cx("semi-auto-mode", { "block": isBlocksemiauto === 1 })}
-                onClick={handleSemiAutoClick}>
+              </div>
+              <div className={cx("semi-auto-mode", { "block": isBlocksemiauto === 1 })}>
                 Semi-auto
-              </button>
+              </div>
             </div>
           </div>
         </div>
@@ -288,7 +284,7 @@ const Dashboard = () => {
               <p className={cx("text-update")}>Last update: Now </p>
             </div>
             <div className={cx("detail-chart")}>
-              <Line data={dataTemp} options={options}/>
+              <Line data={dataTemp} options={options} />
             </div>
           </div>
           <div className={cx("air")}>
@@ -297,7 +293,7 @@ const Dashboard = () => {
               <p className={cx("text-update")}>Last update: Now </p>
             </div>
             <div className={cx("detail-chart")}>
-              <Line data={dataAir} options={options}/>
+              <Line data={dataAir} options={options} />
             </div>
           </div>
           <div className={cx("soil")}>
@@ -306,7 +302,7 @@ const Dashboard = () => {
               <p className={cx("text-update")}>Last update: Now </p>
             </div>
             <div className={cx("detail-chart")}>
-              <Line data={dataSoil} options={options}/>
+              <Line data={dataSoil} options={options} />
             </div>
           </div>
         </div>
@@ -363,11 +359,11 @@ const Dashboard = () => {
             </div>
             <div className={cx("humi-sensor")}>
               Humidity sensor
-              <FontAwesomeIcon icon={faCircle} className={cx("icon-warning")} />
+              <FontAwesomeIcon icon={faCircle} className={cx("icon-normal")} />
             </div>
             <div className={cx("soil-moisture-sensor")}>
               Soil moisture sensor
-              <FontAwesomeIcon icon={faCircle} className={cx("icon-error")} />
+              <FontAwesomeIcon icon={faCircle} className={cx("icon-normal")} />
             </div>
           </div>
         </div>
@@ -377,13 +373,13 @@ const Dashboard = () => {
           </p>
           <div className={cx("text-status")}>
             <div>
-              Temperature: ... {/*add DB*/}
+              Temperature: {tmin} - {tmax}
             </div>
             <div>
-              Humidity: ... {/*add DB*/}
+              Humidity: {min} - {max}
             </div>
             <div >
-              Soil moisture: ... {/*add DB*/}
+              Soil moisture: {soil}
             </div>
           </div>
         </div>
