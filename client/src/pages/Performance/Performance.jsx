@@ -9,6 +9,20 @@ const cx = classNames.bind(styles)
 
 const Performance = () => {
 
+  useEffect(() => {
+    const formData = new FormData();
+    formData.append('date', new Date().toLocaleDateString());
+    formData.append('time', new Date().toLocaleTimeString());
+    formData.append('activity', 'Start watering');
+    axios.post('http://localhost/DADN/v2/AUTOMATIC-WATERING-MHung/server/pages/Performance/Performance.php', formData)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
   const Key = IOKey.split("").reverse().join("");
 
   const [percentage, setPercentage] = useState(0);
